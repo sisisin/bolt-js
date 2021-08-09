@@ -124,7 +124,7 @@ module.exports = {
         // Require class properties and methods to explicitly use accessibility modifiers (public, private, protected)
         '@typescript-eslint/explicit-member-accessibility': 'error',
 
-        // Forbids an object literal to appear in a type assertion expression unless its used as a parameter. This
+        // Forbids an object literal to appear in a type assertion expression unless its used as a parameter (we violate this rule for test code, to allow for looser property matching for objects - more in the test-specific rules section below). This
         // allows the typechecker to perform validation on the value as an assignment, instead of allowing the type
         // assertion to always win.
         // Requires use of `as Type` instead of `<Type>` for type assertion. Consistency.
@@ -268,6 +268,19 @@ module.exports = {
         // See https://github.com/slackapi/bolt-js/pull/1012#pullrequestreview-711232738
         // for a case of arrow-vs-function syntax coming up for the team
         'prefer-arrow-callback': 'off',
+
+        // Unlike non-test-code, where we requireq use of `as Type` instead of `<Type>` for type assertion, in test code using the looser `as Type` syntax leads to easier test writing, since only required properties must be adhered to using the `as Type` syntax.
+        '@typescript-eslint/consistent-type-assertions': ['error', {
+          assertionStyle: 'as',
+          objectLiteralTypeAssertions: 'allow',
+        }],
+        '@typescript-eslint/naming-convention': [
+          'error',
+          {
+            'selector': 'objectLiteralProperty',
+            format: ['camelCase', 'snake_case', 'PascalCase'] // for mocking and override support
+          },
+        ],
       },
     },
   ],
