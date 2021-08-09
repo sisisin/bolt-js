@@ -226,7 +226,7 @@ module.exports = {
           },
           {
             'selector': 'objectLiteralProperty',
-            format: ['camelCase', 'snake_case', 'PascalCase'] 
+            format: ['camelCase', 'snake_case', 'PascalCase'],
           },
         ],
 
@@ -269,18 +269,16 @@ module.exports = {
         // for a case of arrow-vs-function syntax coming up for the team
         'prefer-arrow-callback': 'off',
 
-        // Unlike non-test-code, where we requireq use of `as Type` instead of `<Type>` for type assertion, in test code using the looser `as Type` syntax leads to easier test writing, since only required properties must be adhered to using the `as Type` syntax.
+        // Unlike non-test-code, where we require use of `as Type` instead of `<Type>` for type assertion,
+        // in test code using the looser `as Type` syntax leads to easier test writing, since only required
+        // properties must be adhered to using the `as Type` syntax.
         '@typescript-eslint/consistent-type-assertions': ['error', {
           assertionStyle: 'as',
           objectLiteralTypeAssertions: 'allow',
         }],
-        '@typescript-eslint/naming-convention': [
-          'error',
-          {
-            'selector': 'objectLiteralProperty',
-            format: ['camelCase', 'snake_case', 'PascalCase'] // for mocking and override support
-          },
-        ],
+        // In tests, don't force constructing a Symbol with a descriptor, as
+        // it's probably just for tests
+        'symbol-description': 'off',
       },
     },
   ],
